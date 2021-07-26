@@ -18,9 +18,6 @@ before_install:
   - echo "apc.enable_cli=1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update && composer update $FLAGS
 
-services:
-  - redis
-
 script: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover=coverage.clover
 
 after_script:

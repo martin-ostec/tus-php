@@ -34,11 +34,6 @@ class ConfigTest extends TestCase
     public function it_loads_config_from_array()
     {
         $config = [
-            'redis' => [
-                'host' => '129.0.0.1',
-                'port' => '6381',
-                'database' => 15,
-            ],
             'file' => [
                 'dir' => '/var/www/.cache/',
                 'name' => 'tus_php.cache',
@@ -84,8 +79,6 @@ class ConfigTest extends TestCase
      */
     public function it_gets_value_for_a_key()
     {
-        $this->assertEquals($this->config['redis'], Config::get('redis'));
-        $this->assertEquals($this->config['redis']['host'], Config::get('redis.host'));
         $this->assertEquals($this->config['file']['meta']['name'], Config::get('file.meta.name'));
     }
 
@@ -96,6 +89,6 @@ class ConfigTest extends TestCase
      */
     public function it_returns_null_for_invalid_key()
     {
-        $this->assertNull(Config::get('redis.invalid'));
+        $this->assertNull(Config::get('file.invalid'));
     }
 }

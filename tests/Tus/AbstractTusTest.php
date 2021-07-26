@@ -3,7 +3,6 @@
 namespace TusPhp\Test\Tus;
 
 use TusPhp\Cache\FileStore;
-use TusPhp\Cache\RedisStore;
 use PHPUnit\Framework\TestCase;
 use TusPhp\Tus\Server as TusServer;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -37,10 +36,6 @@ class AbstractTusTest extends TestCase
     public function it_sets_and_gets_cache()
     {
         $this->assertInstanceOf(FileStore::class, $this->tus->getCache());
-
-        $this->tus->setCache('redis');
-
-        $this->assertInstanceOf(RedisStore::class, $this->tus->getCache());
 
         $fileStore = new FileStore;
 

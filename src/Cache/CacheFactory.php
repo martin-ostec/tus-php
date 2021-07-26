@@ -17,8 +17,6 @@ class CacheFactory
     public static function make(string $type = 'file'): Cacheable
     {
         switch ($type) {
-            case 'redis':
-                return new RedisStore;
             case 'apcu':
                 return new ApcuStore;
         }

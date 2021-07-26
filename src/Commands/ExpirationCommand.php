@@ -23,11 +23,11 @@ class ExpirationCommand extends Command
         $this
             ->setName('tus:expired')
             ->setDescription('Remove expired uploads.')
-            ->setHelp('Deletes all expired uploads to free server resources. Values can be redis, file or apcu. Defaults to file.')
+            ->setHelp('Deletes all expired uploads to free server resources. Values can be file or apcu. Defaults to file.')
             ->addArgument(
                 'cache-adapter',
                 InputArgument::OPTIONAL,
-                'Cache adapter to use: redis, file or apcu',
+                'Cache adapter to use: file or apcu',
                 'file'
             )
             ->addOption(
