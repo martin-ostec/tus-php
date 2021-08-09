@@ -320,8 +320,7 @@ class File
                     throw new ConnectionException('Connection aborted by user.');
                 }
 
-                $data  = $this->read($input, self::CHUNK_SIZE);
-                $bytes = $this->write($output, $data, self::CHUNK_SIZE);
+                $bytes = $this->readWrite($input, $output);
 
                 $this->offset += $bytes;
 
@@ -561,5 +560,22 @@ class File
     public function close($handle) : bool
     {
         return fclose($handle);
+    }
+
+    /**
+     * @param $input
+     * @param $output
+     * @return int
+     */
+    private function readWrite($input, $output): int
+    {
+        $chunkSize = self::CHUNK_SIZE;
+        $buffer = '';
+
+        while (!feof($input) && (strlen($buffer) < $chunkSize)) {
+            $buffer .= $this->read($input, 1000000);
+        }
+
+        return $this->write($output, $buffer);
     }
 }
