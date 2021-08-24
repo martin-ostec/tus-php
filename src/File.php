@@ -310,6 +310,7 @@ class File
 
         $input  = $this->open($this->getInputStream(), self::READ_BINARY);
         $output = $this->open($this->getFilePath(), self::APPEND_BINARY);
+        stream_set_chunk_size($output, self::CHUNK_SIZE);
         $key    = $this->getKey();
 
         try {
@@ -445,6 +446,7 @@ class File
     public function write($handle, string $data, $length = null) : int
     {
         $bytesWritten = \is_int($length) ? fwrite($handle, $data, $length) : fwrite($handle, $data);
+        file_put_contents('/tmp/write.logs', "$bytesWritten\n", FILE_APPEND);
 
         if (false === $bytesWritten) {
             throw new FileException('Cannot write to a file.');
