@@ -446,7 +446,6 @@ class File
     public function write($handle, string $data, $length = null) : int
     {
         $bytesWritten = \is_int($length) ? fwrite($handle, $data, $length) : fwrite($handle, $data);
-        file_put_contents('/tmp/write.logs', "$bytesWritten\n", FILE_APPEND);
 
         if (false === $bytesWritten) {
             throw new FileException('Cannot write to a file.');
