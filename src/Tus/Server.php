@@ -354,7 +354,13 @@ class Server extends AbstractTus
         }
 
         $uploadKey = $this->getUploadKey();
-        $filePath  = $this->uploadDir . '/' . $fileName;
+
+        $uploadDir = $this->uploadDir . '/' . $uploadKey;
+
+        if (!mkdir($uploadDir) && !is_dir($uploadDir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $uploadDir));
+        }
+        $filePath  = $uploadDir . '/' . $fileName;
 
         if ($this->getRequest()->isFinal()) {
             return $this->handleConcatenation($fileName, $filePath);
